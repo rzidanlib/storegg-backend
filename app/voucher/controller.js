@@ -186,19 +186,42 @@ module.exports = {
       res.redirect("/nominal");
     }
   },
-  // actionDelete: async (req, res) => {
-  //   try {
-  //     const { id } = req.params;
-  //     await Nominal.findOneAndRemove({ _id: id });
+  actionDelete: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const voucher = await Voucher.findOneAndRemove({ _id: id });
 
-  //     req.flash("alertMessage", "Berhasil hapus nominal");
-  //     req.flash("alertStatus", "success");
+      let currentImage = `${rootPath}/public/uploads/${voucher.thumbnail}`;
+      if (fs.existsSync(currentImage)) {
+        fs.unlinkSync(currentImage);
+      }
 
-  //     res.redirect("/nominal");
-  //   } catch (error) {
-  //     req.flash("alertMessage", `${error.message}`);
-  //     req.flash("alertStatus", "danger");
-  //     res.redirect("/nominal");
-  //   }
-  // },
+      req.flash("alertMessage", "Berhasil hapus voucher");
+      req.flash("alertStatus", "success");
+
+      res.redirect("/voucher");
+    } catch (error) {
+      req.flash("alertMessage", `${error.message}`);
+      req.flash("alertStatus", "danger");
+      res.redirect("/voucher");
+    }
+  },
+  actionStatus: async (req, res) => {
+    try {
+      const { id } = req.params;
+      let voucher = await Voucher.findOne({ _id: id });
+      let status = voucher.status === "Y" ? "N" : "Y";
+
+      voucher = await Voucher.findOneAndUpdate({ _id: id }, { status });
+
+      req.flash("alertMessage", "Berhasil ubah status voucher");
+      req.flash("alertStatus", "success");
+
+      res.redirect("/voucher");
+    } catch (error) {
+      req.flash("alertMessage", `${error.message}`);
+      req.flash("alertStatus", "danger");
+      res.redirect("/voucher");
+    }
+  },
 };
