@@ -37,7 +37,7 @@
               <div class="card-body">
                 <div class="form-group">
                   <label>Nama Coin</label>
-                  <select class="form-control select2" style="width: 100%;" name="coinName" id="coinName">
+                  <select class="form-control select2" style="width: 100%;" name="coinName" id="coinName" required>
                     <option selected="selected">Pilih Coin</option>
                     <option value="Gold" <% if (nominal.coinName === "Gold") { %> selected <% } %>>Gold</option>
                     <option value="Diamond" <% if (nominal.coinName === "Diamond") { %> selected <% } %>>Diamond</option>
@@ -46,11 +46,11 @@
                 </div>
                 <div class="form-group">
                   <label for="coinQuantity">Jumlah Coin</label>
-                  <input type="number" value="<%= nominal.coinQuantity %>" class="form-control" name="coinQuantity" id="coinQuantity" placeholder="Masukan jumlah coin">
+                  <input type="number" value="<%= nominal.coinQuantity %>" class="form-control" name="coinQuantity" id="coinQuantity" placeholder="Masukan jumlah coin" required>
                 </div>
                 <div class="form-group">
                   <label for="price">Harga</label>
-                  <input type="number" value="<%= nominal.price %>" class="form-control" name="price" id="price" placeholder="Masukan harga">
+                  <input type="number" value="<%= nominal.price %>" class="form-control" name="price" id="price" placeholder="Masukan harga" required>
                 </div>
               </div>
               <!-- /.card-body -->
