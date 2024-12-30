@@ -15,7 +15,7 @@
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="/">Home</a></li>
             <li class="breadcrumb-item"><a href="/voucher">Voucher</a></li>
-            <li class="breadcrumb-item active">Tambah</li>
+            <li class="breadcrumb-item active">Ubah</li>
           </ol>
         </div>
       </div>
@@ -29,22 +29,24 @@
         <div class="col-12">
           <div class="card card-primary">
             <div class="card-header">
-              <h3 class="card-title">Form Tambah Voucher</h3>
+              <h3 class="card-title">Form Ubah Voucher <%= voucher.name %> </h3>
             </div>
             <!-- /.card-header -->
             <!-- form start -->
-            <form action="/voucher/create" method="POST" enctype="multipart/form-data">
+            <form action="/voucher/edit/<%= voucher._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
               <div class="card-body">
                 <div class="form-group">
                   <label for="name">Nama Game</label>
-                  <input type="text" class="form-control" name="name" id="name" placeholder="Masukan nama game" required>
+                  <input type="text" class="form-control" value="<%= voucher.name %>" name="name" id="name" placeholder="Masukan nama game" required>
                 </div>
                 <div class="form-group">
                   <label>Kategori</label>
                   <select class="form-control select2" style="width: 100%;" name="category" id="category">
                     <option selected="selected">Pilih Kategori</option>
                     <% category.forEach(category => { %>
-                    <option value="<%= category._id %>"><%= category.name %></option>
+                    <option value="<%= category._id %>" <% if(category._id.toString() === voucher?.category?._id.toString()) { %> selected <% } %>>
+                      <%= category.name %>
+                    </option>
                     <% }) %>
                   </select>
                 </div>
@@ -53,7 +55,9 @@
                   <div class="select2-purple">
                     <select class="form-control select2" multiple="multiple" style="width: 100%;" name="nominals" id="nominals" data-placeholder="Pilih Nominal" required>
                       <% nominal.forEach(nominal => { %>
-                      <option value="<%= nominal._id %>"><%= nominal.coinName %> <%= nominal.coinQuantity %> </option>
+                      <option value="<%= nominal._id %>" <% voucher.nominals.forEach(voucherNominal => { %> <% if(nominal._id.toString() === voucherNominal._id.toString()) { %> selected <% } %> <% }) %>>
+                        <%= nominal.coinName %> <%= nominal.coinQuantity %>
+                      </option>
                       <% }) %>
                     </select>
                   </div>
@@ -62,7 +66,7 @@
                   <label for="image">Thumbnail Game</label>
                   <input type="file" class="form-control" name="image" id="image" placeholder="Masukan gambar">
                   <br>
-                  <img src="" id="preview">
+                  <img src="http://localhost:3001/uploads/<%= voucher.thumbnail %>" id="preview" width="20%" height="20%">
                 </div>
               </div>
               <!-- /.card-body -->
