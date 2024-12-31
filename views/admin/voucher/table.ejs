@@ -17,14 +17,14 @@
       <td><%= voucher[i]?.category?.name ?? "-" %></td>
       <td>
         <% voucher[i].nominals.forEach(nominal => { %>
-        <span class="badeg badge-warning rounded p-1"><%= nominal.coinName %> - <%= nominal.coinQuantity %></span>
+        <span class="badge badge-warning rounded p-1"><%= nominal.coinName %> - <%= nominal.coinQuantity %></span>
         <% }) %>
       </td>
       <td>
         <% if(voucher[i].status === "Y") { %>
-        <span class="badeg badge-success rounded p-1">Aktif</span>
+        <span class="badge badge-success rounded p-1">Aktif</span>
         <% } else { %>
-        <span class="badeg badge-danger rounded p-1">Tidak Aktif</span>
+        <span class="badge badge-danger rounded p-1">Tidak Aktif</span>
         <% } %>
       </td>
       <td>
