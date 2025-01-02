@@ -11,6 +11,7 @@ module.exports = {
       if (req.session.user === null || req.session.user === undefined) {
         res.render("admin/user/view_signin", {
           alert,
+          title: "Halaman Login",
         });
       } else {
         res.render("/dashboard");
@@ -58,5 +59,9 @@ module.exports = {
       req.flash("alertStatus", "danger");
       res.redirect("/.");
     }
+  },
+  actionLogout: async (req, res) => {
+    req.session.destroy();
+    res.redirect("/");
   },
 };
