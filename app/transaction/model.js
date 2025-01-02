@@ -53,8 +53,8 @@ let transactionSchema = new mongoose.Schema(
       phoneNumber: {
         type: Number,
         required: [true, "No Handphone harus diisi"],
-        maxLength: [13, "Panjang nomor harus 9 - 13 karakter"],
-        minLength: [9, "Panjang nomor harus 9 -13 karakter"],
+        maxLength: [13, "Panjang nomor handphone harus 9 - 13 karakter"],
+        minLength: [9, "Panjang nomor handphone harus 9 -13 karakter"],
       },
     },
     category: {
