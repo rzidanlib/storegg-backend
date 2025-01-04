@@ -1,4 +1,7 @@
 const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
+
+const HASH_ROUND = 10;
 
 let playerSchema = new mongoose.Schema(
   {
@@ -41,7 +44,7 @@ let playerSchema = new mongoose.Schema(
       type: String,
     },
     phoneNumber: {
-      type: Number,
+      type: String,
       required: [true, "No Handphone harus diisi"],
       maxLength: [13, "Panjang nomor handphone harus 9 - 13 karakter"],
       minLength: [9, "Panjang nomor handphone harus 9 -13 karakter"],
@@ -53,5 +56,18 @@ let playerSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+playerSchema.path("email").validate(
+  async function (value) {
+    const count = await this.model("Player").countDocuments({ email: value });
+    return !count;
+  },
+  (attr) => `${attr.value} sudah terdaftar`
+);
+
+playerSchema.pre("save", function (next) {
+  this.password = bcrypt.hashSync(this.password, HASH_ROUND);
+  next();
+});
 
 module.exports = mongoose.model("Player", playerSchema);
