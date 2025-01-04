@@ -1,23 +1,18 @@
 const Player = require("./model");
+const Voucher = require("../voucher/model");
 
 module.exports = {
-  index: async (req, res) => {
+  landingPage: async (req, res) => {
     try {
-      const alertMessage = req.flash("alertMessage");
-      const alertStatus = req.flash("alertStatus");
+      const voucher = await Voucher.find()
+        .select("_id name status category thumbnail")
+        .populate("category");
 
-      const alert = { message: alertMessage, status: alertStatus };
-      const player = await Player.find();
-      res.render("admin/player/view_player", {
-        player,
-        alert,
-        name: req.session.user.name,
-        title: "Halaman Player",
-      });
+      res.status(200).json({ data: voucher });
     } catch (error) {
-      req.flash("alertMessage", `${error.message}`);
-      req.flash("alertStatus", "danger");
-      res.redirect("/player");
+      res
+        .status(500)
+        .json({ message: error.message || "Terjadi kesalahan pada server" });
     }
   },
 };
