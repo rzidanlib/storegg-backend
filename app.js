@@ -32,7 +32,7 @@ app.set("view engine", "ejs");
 
 app.use(
   session({
-    secret: "keyboard cat",
+    secret,
     resave: true,
     cookie: { maxAge: 24 * 60 * 60 * 1000, sameSite: "none", secure: true }, // 8 hours
     saveUninitialized: true,
