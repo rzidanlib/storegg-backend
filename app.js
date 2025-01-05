@@ -4,7 +4,7 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 const methodOverride = require("method-override");
-const session = require("express-session");
+const session = require("cookie-session");
 const flash = require("connect-flash");
 const cors = require("cors");
 
@@ -32,10 +32,10 @@ app.set("view engine", "ejs");
 
 app.use(
   session({
-    secret,
-    resave: false,
+    secret: "keyboard cat",
+    resave: true,
+    cookie: { maxAge: 24 * 60 * 60 * 1000, sameSite: "none", secure: true }, // 8 hours
     saveUninitialized: true,
-    cookie: {},
   })
 );
 app.use(flash());
