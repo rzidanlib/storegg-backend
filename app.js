@@ -6,6 +6,7 @@ var logger = require("morgan");
 const methodOverride = require("method-override");
 const session = require("express-session");
 const flash = require("connect-flash");
+const cors = require("cors");
 
 const { secret } = require("./config");
 
@@ -22,6 +23,8 @@ const authRouter = require("./app/auth/router");
 
 const app = express();
 const URL = "/api/v1";
+
+app.use(cors({ origin: true, credentials: true }));
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
