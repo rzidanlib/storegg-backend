@@ -25,31 +25,6 @@ var server = http.createServer(app);
  * Listen on provided port, on all network interfaces.
  */
 
-async function init() {
-  try {
-    // Menunggu koneksi database
-    const result = await db();
-
-    console.log("Database status:", result);
-
-    // Memulai server jika mode bukan produksi
-    if (process.env.MODE !== "production") {
-      server.listen(port, () => {
-        console.log(`Server is running on http://localhost:${port}`);
-      });
-    }
-
-    // Menambahkan event listener untuk error dan listening
-    server.on("error", onError);
-    server.on("listening", onListening);
-  } catch (error) {
-    console.error("Error during initialization:", error);
-  }
-}
-
-// Panggil fungsi init
-init();
-
 // db.on("error", function (err) {
 //   console.error("connection error:", err.message);
 // });
@@ -60,6 +35,10 @@ init();
 //   server.on("error", onError);
 //   server.on("listening", onListening);
 // });
+
+server.listen(port, () => console.log("port : ", port));
+server.on("error", onError);
+server.on("listening", onListening);
 
 /**
  * Normalize a port into a number, string, or false.
