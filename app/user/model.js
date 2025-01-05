@@ -24,7 +24,7 @@ let userSchema = new mongoose.Schema(
       enum: ["Y", "N"],
       default: "Y",
     },
-    password: {
+    phoneNumber: {
       type: String,
       required: [true, "No Handphone harus diisi"],
     },
