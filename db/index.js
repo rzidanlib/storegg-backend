@@ -7,7 +7,9 @@ async function main() {
   await mongoose.connect(urlDb, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    serverSelectionTimeoutMS: 30000, // 30 detik
+    useCreateIndex: true, // DeprecationWarning: MongoDB driver >= 6.0
+    useFindAndModify: false, // Tidak diperlukan di versi terbaru mongoose
+    connectTimeoutMS: 30000, // 30 detik
   });
   console.log("Database connected");
 }
