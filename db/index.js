@@ -6,7 +6,7 @@ main().catch((err) => console.log(err));
 async function main() {
   await mongoose.connect(urlDb, {
     autoIndex: true,
-    serverSelectionTimeoutMS: 50000, // Increase the timeout to 50 seconds
+    serverSelectionTimeoutMS: 50000,
   });
   console.log("Database connected");
 }
