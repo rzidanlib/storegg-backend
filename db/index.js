@@ -4,7 +4,10 @@ const { urlDb } = require("../config");
 main().catch((err) => console.log(err));
 
 async function main() {
-  await mongoose.connect(urlDb);
+  await mongoose.connect(urlDb, {
+    autoIndex: true,
+    serverSelectionTimeoutMS: 50000, // Increase the timeout to 50 seconds
+  });
   console.log("Database connected");
 }
 
